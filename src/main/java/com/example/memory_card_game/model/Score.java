@@ -36,6 +36,10 @@ public class Score {
 
     // Many scores can belong to one player, hence the many-to-one relationship.
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "player_id")
+    private Player player;
+
 
 }
 
