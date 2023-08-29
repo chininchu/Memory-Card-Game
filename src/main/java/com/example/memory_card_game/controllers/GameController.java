@@ -4,6 +4,8 @@ import com.example.memory_card_game.Repository.PlayerRepository;
 import com.example.memory_card_game.Repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class GameController {
@@ -19,6 +21,17 @@ public class GameController {
         this.scoreRepository = scoreRepository;
     }
 
+    @GetMapping("/game")
+
+    public String displayGame() {
+
+        // Logic to display the game
+        return "game";
+
+        // This refers to the game.html (or game template) file
+
+
+    }
 
 
 
