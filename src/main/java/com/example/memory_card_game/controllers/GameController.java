@@ -5,6 +5,7 @@ import com.example.memory_card_game.Repository.ScoreRepository;
 import com.example.memory_card_game.model.Score;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -16,6 +17,7 @@ public class GameController {
 
     private final ScoreRepository scoreRepository;
 
+    @Autowired
 
     public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository) {
         this.playerRepository = playerRepository;
@@ -40,6 +42,17 @@ public class GameController {
 
         scoreRepository.save(score);
         return "redirect:/highscores";
+
+
+    }
+
+    @GetMapping("/highscores")
+
+    public String displayHighScores(Model model) {
+
+        model.addAttribute("scores", scoreRepository.findAll());
+
+        return "highscores"; // This refers to the highscores.html file
 
 
     }
