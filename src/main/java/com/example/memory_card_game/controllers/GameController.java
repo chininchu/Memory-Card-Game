@@ -2,6 +2,7 @@ package com.example.memory_card_game.controllers;
 
 import com.example.memory_card_game.Repository.PlayerRepository;
 import com.example.memory_card_game.Repository.ScoreRepository;
+import com.example.memory_card_game.model.Score;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,15 @@ public class GameController {
 
     }
 
+    @PostMapping("/score")
 
+    public String saveScore(Score score) {
+
+        scoreRepository.save(score);
+        return "redirect:/highscores";
+
+
+    }
 
 
 }
