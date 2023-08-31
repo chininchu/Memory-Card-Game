@@ -2,6 +2,7 @@ package com.example.memory_card_game.controllers;
 
 import com.example.memory_card_game.Repository.PlayerRepository;
 import com.example.memory_card_game.Repository.ScoreRepository;
+import com.example.memory_card_game.model.Card;
 import com.example.memory_card_game.model.Score;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ public class GameController {
     @GetMapping("/game")
 
     public String displayGame(Model model) {
+
+
+
 
 
 

@@ -1,9 +1,15 @@
 package com.example.memory_card_game.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
+@Table(name = "cards")
 public class Card {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
     // could represent the card value or name
