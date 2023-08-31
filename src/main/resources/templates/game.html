@@ -10,14 +10,36 @@
 
 <div id="gameBoard">
 
-    <div class="card" th:each="card: ${cards}" >
+    <div class="card" th:each="card: ${cards}">
+
+        <!-- Display card value -->
+
+
+        <p th:text="${card.value}"></p>
+
+        <!-- Display card image -->
+
+        <img th:if="${card.imageURL}" th:src="${card.imageURL}" alt="Card Image"/>
+
+        <!-- You might have some logic to display card based on its flipped status, for simplicity we're just displaying the value and image -->
 
 
     </div>
 
 
-
 </div>
+
+<!-- Include other parts of your game like a form to submit the score -->
+
+<form th:action="@{/score}" th:object="${}">
+
+
+
+
+</form>
+
+
+
 
 
 </body>

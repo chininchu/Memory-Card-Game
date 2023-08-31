@@ -52,6 +52,7 @@ public class GameController {
 
     public String saveScore(Score score) {
 
+
         scoreRepository.save(score);
         return "redirect:/highscores";
 
