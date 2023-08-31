@@ -39,6 +39,8 @@ public class GameController {
 
     public String displayGame(Model model) {
 
+        model.addAttribute("score", new Score());
+
         List<Card> cards = cardRepository.findAll();
 
         model.addAttribute("cards", cards);
@@ -79,16 +81,6 @@ public class GameController {
 
         return "highscores"; // This refers to the highscores.html file
 
-
-    }
-
-    @GetMapping("/submitScore")
-
-    public String showScoreForm(Model model){
-
-        model.addAttribute("score", new Score());
-
-        return  "submitScore";
 
     }
 
