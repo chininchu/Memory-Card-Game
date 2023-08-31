@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class GameController {
 
@@ -26,7 +28,10 @@ public class GameController {
 
     @GetMapping("/game")
 
-    public String displayGame() {
+    public String displayGame(Model model) {
+
+
+
 
         // Logic to display the game
         return "game";
