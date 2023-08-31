@@ -1,5 +1,6 @@
 package com.example.memory_card_game.controllers;
 
+import com.example.memory_card_game.Repository.CardRepository;
 import com.example.memory_card_game.Repository.PlayerRepository;
 import com.example.memory_card_game.Repository.ScoreRepository;
 import com.example.memory_card_game.model.Card;
@@ -20,21 +21,23 @@ public class GameController {
 
     private final ScoreRepository scoreRepository;
 
+    private CardRepository cardRepository;
+
     @Autowired
 
-    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository) {
+    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository) {
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
+        this.cardRepository = cardRepository;
     }
 
     @GetMapping("/game")
 
     public String displayGame(Model model) {
 
+        List<Card> cards = cardRepository.findAll();
 
-
-
-
+        model.addAttribute("cards", cards);
 
 
         // Logic to display the game
