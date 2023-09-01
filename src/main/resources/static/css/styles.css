@@ -1,0 +1,105 @@
+/* Basic styling for the body and h1 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Styling for the game board */
+#gameBoard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px; /* or any desired size */
+    gap: 10px;
+    margin: 20px auto;
+}
+
+/* Styling for each card */
+.card {
+    width: 90px;
+    height: 120px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #FFD700; /* Gold color just for visualization */
+
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Image styling */
+.card img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Timer styling */
+#timer {
+    text-align: center;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+
+.card {
+
+    width: 100px;
+    height: 150px;
+    margin: 15px;
+    display: inline-block;
+    background-color: #aaa;
+    cursor: pointer;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+
+
+}
+
+
+card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card.matched {
+    visibility: hidden;
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.card-back {
+    background-color: #555;
+}
+
+.card-front {
+    transform: rotateY(180deg);
+}
+
+
+
+ .material-symbols-outlined {
+     font-variation-settings:
+             'FILL' 0,
+             'wght' 400,
+             'GRAD' 0,
+             'opsz' 24
+ }
