@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <title>Memory Matching Game</title>
 
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 
-<!--    <script th:src="@{/js/scripts.js}"></script>-->
+
+
+
+    <!--    <script th:src="@{/js/scripts.js}"></script>-->
 
 
 </head>
@@ -18,11 +22,16 @@
     <h1>Memory Matching Game</h1>
     <div id="gameBoard">
         <div class="card" th:each="card: ${cards}">
-            <img th:if="${card.isFlipped}" th:src="${card.imageURL}" alt="Card"/>
+            <!--            <img th:if="${card.isFlipped}" th:src="${card.imageURL}" alt="Card"/>-->
             <!-- You can show a default image or blank space if card is not flipped -->
 
 
-            <img th:unless="${card.isFlipped}" src="/path/to/placeholder/image.jpg" alt="Back of Card"/>
+
+            <span th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">favorite</span>
+            <!-- Placeholder for the back of the card when it's not flipped -->
+            <span th:unless="${card.isFlipped}" class="material-icons">visibility_off</span>
+
+
 
         </div>
     </div>

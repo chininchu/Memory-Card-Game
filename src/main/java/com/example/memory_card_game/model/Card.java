@@ -20,5 +20,8 @@ public class Card {
     // to check if the card is flipped or not
     private boolean isFlipped;
 
+    private String iconName;  // e.g., "favorite", "home", "star", etc.
+
+
 
 }
