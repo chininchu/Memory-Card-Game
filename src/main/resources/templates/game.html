@@ -10,11 +10,6 @@
           rel="stylesheet">
 
 
-
-
-    <!--    <script th:src="@{/js/scripts.js}"></script>-->
-
-
 </head>
 <body>
 
@@ -26,11 +21,37 @@
             <!-- You can show a default image or blank space if card is not flipped -->
 
 
+            <span th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">favorite</span> <span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">favorite</span>
 
-            <span th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">favorite</span>
+
+            <span th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">star</span> <span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">star</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">cancel</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">cancel</span>
+
+            <br>
+
+            <span
+                    th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">check</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">check</span><span
+                th:if="${card.isFlipped}" class="material-icons"
+                th:text="${card.iconName}">radio_button_unchecked</span><span
+                th:if="${card.isFlipped}" class="material-icons"
+                th:text="${card.iconName}">radio_button_unchecked</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">key</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">key</span>
+            <br>
+            <span
+                    th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">zoom_in</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">zoom_in</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">terminal</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">terminal</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">keyboard_voice</span><span
+                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">keyboard_voice</span>
+
+
             <!-- Placeholder for the back of the card when it's not flipped -->
-            <span th:unless="${card.isFlipped}" class="material-icons">visibility_off</span>
-
 
 
         </div>
