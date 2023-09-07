@@ -41,9 +41,9 @@ public class GameController {
 
         model.addAttribute("score", new Score());
 
-        List<Card> cards = cardRepository.findAll();
-
-        model.addAttribute("cards", cards);
+//        List<Card> cards = cardRepository.findAll();
+//
+//        model.addAttribute("cards", cards);
 
 
         // Logic to display the game

@@ -10,20 +10,19 @@
           rel="stylesheet">
 
 
-
-
-
-
-
 </head>
 <body>
 
 <div>
     <h1>Memory Matching Game</h1>
     <div id="gameBoard">
-        <div class="card" th:each="card: ${cards}">
-            <!--            <img th:if="${card.isFlipped}" th:src="${card.imageURL}" alt="Card"/>-->
-            <!-- You can show a default image or blank space if card is not flipped -->
+        <div class="card" th:each="card: ${cards}" data-flipped="false" onclick="toggleCard(this)">
+
+            <!-- Material icon for the back of the card -->
+
+            <span class="material-icons back-icon">panorama_fish_eye</span>
+
+            <!-- Actual card icon -->
 
 
             <span th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">favorite</span> <span
@@ -54,9 +53,6 @@
                 th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">terminal</span><span
                 th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">keyboard_voice</span><span
                 th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">keyboard_voice</span>
-
-
-            <!-- Placeholder for the back of the card when it's not flipped -->
 
 
         </div>
