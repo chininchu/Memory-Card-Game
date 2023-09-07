@@ -6,8 +6,14 @@
 
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols_Iutlined"
           rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
 
 
 </head>
@@ -20,39 +26,13 @@
 
             <!-- Material icon for the back of the card -->
 
-            <span class="material-icons back-icon">panorama_fish_eye</span>
+            <span class="material-icons"></span>
+
 
             <!-- Actual card icon -->
 
 
-            <span th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">favorite</span> <span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">favorite</span>
-
-
-            <span th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">star</span> <span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">star</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">cancel</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">cancel</span>
-
-            <br>
-
-            <span
-                    th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">check</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">check</span><span
-                th:if="${card.isFlipped}" class="material-icons"
-                th:text="${card.iconName}">radio_button_unchecked</span><span
-                th:if="${card.isFlipped}" class="material-icons"
-                th:text="${card.iconName}">radio_button_unchecked</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">key</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">key</span>
-            <br>
-            <span
-                    th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">zoom_in</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">zoom_in</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">terminal</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">terminal</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">keyboard_voice</span><span
-                th:if="${card.isFlipped}" class="material-icons" th:text="${card.iconName}">keyboard_voice</span>
+            <span th:if="${card.isFlipped}" class="material-symbols-outlined" th:text="${card.iconName}"></span>
 
 
         </div>

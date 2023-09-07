@@ -23,8 +23,7 @@ public class Card {
 
     // could represent the card's image if any
 
-    @Column(name = "imageURL")
-    private String imageURL;
+
     // to check if the card is flipped or not
 
     @Column(name = "isFlipped")
