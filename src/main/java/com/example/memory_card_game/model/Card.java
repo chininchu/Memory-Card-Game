@@ -8,6 +8,11 @@ import lombok.Data;
 @Table(name = "cards")
 public class Card {
 
+    public void setIsFlipped(boolean isFlipped) {
+        this.isFlipped = isFlipped;
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 

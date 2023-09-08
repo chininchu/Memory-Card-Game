@@ -43,9 +43,16 @@ public class GameController {
 
         List<Card> cards = cardRepository.findAll();
 
+        // Set isFlipped to false for all cards to ensure they are face down initially
+
+        for (Card card : cards) {
+            card.setIsFlipped(false);
+
+
+        }
+
 
         model.addAttribute("cards", cards);
-
 
 
         // Logic to display the game
