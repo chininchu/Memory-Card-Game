@@ -6,16 +6,17 @@ import com.example.memory_card_game.Repository.ScoreRepository;
 import com.example.memory_card_game.model.Card;
 import com.example.memory_card_game.model.Score;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class GameController {
@@ -94,6 +95,35 @@ public class GameController {
     }
 
 
+    @PostMapping("/toggleCard")
+    @ResponseBody
+
+    public ResponseEntity<String> toggleCard(@RequestParam Long cardId) {
+
+        Optional<Card> cardOptional = cardRepository.findById(cardId);
+
+        if (cardOptional.isPresent()) {
+
+            Card card = cardOptional.get();
+
+            card.setIsFlipped(!card.getIsFlipped());
+
+            cardRepository.save(card);
+
+            return ResponseEntity.ok("Card flipped");
+
+
+        } else {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+        }
+
+
+    }
+
+
 }
+
+
 
 

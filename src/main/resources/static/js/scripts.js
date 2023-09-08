@@ -7,7 +7,4 @@ function toggleCard(card) {
     card.setAttribute("data-flipped", !isFlipped);
 
 
-
-
-
 }

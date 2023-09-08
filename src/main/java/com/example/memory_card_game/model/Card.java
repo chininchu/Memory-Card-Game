@@ -1,17 +1,21 @@
 package com.example.memory_card_game.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Data
+
 @Entity
 @Table(name = "cards")
 public class Card {
 
-    public void setIsFlipped(boolean isFlipped) {
-        this.isFlipped = isFlipped;
 
-    }
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +36,7 @@ public class Card {
     // to check if the card is flipped or not
 
     @Column(name = "isFlipped")
-    private boolean isFlipped;
+    private Boolean isFlipped;
 
     @Column(name = "iconName")
 
@@ -40,3 +44,4 @@ public class Card {
 
 
 }
+
