@@ -16,9 +16,11 @@
 <div>
     <h1>Memory Matching Game</h1>
     <div id="gameBoard">
-        <div class="card" th:each="card: ${cards}" onclick="toggleCard(this)" th:attr="data-card-id=${card.id}">
+        <div class="card" th:each="card: ${cards}" onclick="toggleCard(this)"
+             th:attr="data-card-id=${card.id} ,data-flipped=${card.isFlipped}">
 
             <div class="back" th:if="${!card.isFlipped}">
+
 
 
             </div>
@@ -26,7 +28,7 @@
 
             <!-- Face up (front of the card) -->
             <div class="front" th:if="${card.isFlipped}">
-                <span class="material-icons" th:text="${card.iconName}"></span>
+                <span class="material-icons card-icon" th:text="${card.iconName}"></span>
             </div>
 
 

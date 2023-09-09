@@ -59,6 +59,9 @@ h1 {
 
 
 
+.card[data-flipped="true"] .back-icon {
+    display: none;
+}
 
 
 

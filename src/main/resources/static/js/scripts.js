@@ -17,7 +17,7 @@ function toggleCard(card) {
             console.log(message);
 
             if (message === 'Card flipped') {
-                card.setAttribute("data-flipped", !isFlipped);
+                card.setAttribute("data-flipped", String(!isFlipped));
 
             }
 
