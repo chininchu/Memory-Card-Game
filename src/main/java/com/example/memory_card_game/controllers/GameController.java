@@ -102,6 +102,7 @@ public class GameController {
 
         Optional<Card> cardOptional = cardRepository.findById(cardId);
 
+
         if (cardOptional.isPresent()) {
 
             Card card = cardOptional.get();
