@@ -66,6 +66,18 @@ h1 {
 
 }
 
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adds some space between the timer and the button */
+    margin-bottom: 20px; /* Adds some space between the header and the game board */
+}
+
+#timer {
+    font-size: 24px;
+    color: black;
+}
 
 
 

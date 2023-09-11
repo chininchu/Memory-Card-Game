@@ -36,13 +36,20 @@
         </div>
     </div>
 
+    <div class="header">
 
-    <div id="timer">0:00</div>
-    <form th:action="@{/score}" th:object="${score}" method="post">
-        <input type="hidden" th:field="*{timeTaken}" id="scoreTime"/>
-        <input type="hidden" th:field="*{player.username}" id="playerName"/>
-        <input type="submit" value="Submit Score"/>
-    </form>
+
+        <div id="timer">0:00</div>
+        <form th:action="@{/score}" th:object="${score}" method="post">
+            <input type="hidden" th:field="*{timeTaken}" id="scoreTime"/>
+            <input type="hidden" th:field="*{player.username}" id="playerName"/>
+            <input type="submit" value="Submit Score"/>
+        </form>
+
+
+    </div>
+
+
 </div>
 
 
