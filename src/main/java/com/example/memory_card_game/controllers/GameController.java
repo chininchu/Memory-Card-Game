@@ -15,7 +15,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -118,6 +120,28 @@ public class GameController {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
         }
+
+
+    }
+
+    @GetMapping("/checkMatch")
+
+    public ResponseEntity<Map<String, Boolean>> checkMatch(@RequestParam Long firstCardId, @RequestParam Long secondCardId) {
+
+        // Stores the Id for the first card
+
+        Card firstCard = cardRepository.findById(firstCardId).orElseThrow();
+
+        // Stores the Id for the secondcard
+        Card secondCard = cardRepository.findById(secondCardId).orElseThrow();
+
+        boolean match = firstCard.getIconName().equals(secondCard.getIconName());
+
+        Map<String, Boolean> response = new HashMap<>();
+
+        response.put("match", match);
+
+        return ResponseEntity.ok(response);
 
 
     }

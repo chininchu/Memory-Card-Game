@@ -10,7 +10,11 @@ function cardClicked(cardElement) {
     }
 
     const cardId = cardElement.getAttribute('data-card-id');
-    fetch(`http://localhost:8080/toggleCard?cardId=${cardId}`)
+    fetch(`http://localhost:8080/toggleCard?cardId=${cardId}`, {
+
+        method: 'POST',
+
+    })
         .then(response => response.text())
         .then(data => console.log(data));
 }
@@ -26,6 +30,8 @@ function checkForMatch() {
                 // Cards match, keep them flipped
                 firstCard = null;
                 secondCard = null;
+
+                console.log("its a match")
             } else {
                 // Cards do not match, flip them back
                 setTimeout(() => {
@@ -34,6 +40,8 @@ function checkForMatch() {
                     firstCard = null;
                     secondCard = null;
                 }, 1000);
+
+                console.log("Not a match")
             }
         });
 }
