@@ -9,6 +9,11 @@ function cardClicked(cardElement) {
         checkForMatch();
     }
 
+    let isFlipped = cardElement.getAttribute('data-flipped') === 'true';
+
+    cardElement.setAttribute('data-flipped', String(!isFlipped));
+
+
     const cardId = cardElement.getAttribute('data-card-id');
     fetch(`http://localhost:8080/toggleCard?cardId=${cardId}`, {
 
@@ -16,7 +21,8 @@ function cardClicked(cardElement) {
 
     })
         .then(response => response.text())
-        .then(data => console.log(data));
+        .then(data => console.log(data))
+        .catch(error => console.error('Error', error));
 }
 
 function checkForMatch() {
@@ -31,17 +37,20 @@ function checkForMatch() {
                 firstCard = null;
                 secondCard = null;
 
-                console.log("its a match")
+                console.log("its a match");
             } else {
                 // Cards do not match, flip them back
                 setTimeout(() => {
-                    firstCard.classList.remove('flipped');
-                    secondCard.classList.remove('flipped');
+                    firstCard.setAttribute('data-flipped', 'false');
+                    secondCard.setAttribute('data-flipped', false);
                     firstCard = null;
                     secondCard = null;
+
                 }, 1000);
 
                 console.log("Not a match")
             }
-        });
+        })
+
+        .catch(error => console.error('Error', error));
 }
