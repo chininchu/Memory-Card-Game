@@ -1,45 +1,32 @@
-"use strict";
-
 let firstCard = null;
 
 function cardClicked(card) {
-    // const card = card.target;
-    const cardId = card.getAttribute("data-card-id");
+    if (firstCard === null) {
+        firstCard = card;
+        return;
+    }
 
-    fetch(`http://localhost:8080/toggleCard?cardId=${cardId}`, {
-        method: 'POST',
-    })
+    const firstCardId = firstCard.getAttribute("data-card-id");
+    const secondCardId = card.getAttribute("data-card-id");
+
+    fetch(`http://localhost:8080/toggleCard?firstCardId=${firstCardId}&secondCardId=${secondCardId}`)
         .then(response => response.text())
-        .then((response) => {
-            console.log(response);  // Log the server response for debugging
-
-            // Toggle the flipped class to flip the card
-            card.classList.toggle('flipped');
-
-            // Check if it's the first card being flipped
-            if (!firstCard) {
-                firstCard = card;  // Store the first card
+        .then(responseText => {
+            console.log(responseText);
+            if (responseText === 'match') {
+                // The cards match, so they should remain flipped
             } else {
-                // Check for a match with the second card
-                if (firstCard.getAttribute('data-icon-name') === card.getAttribute('data-icon-name')) {
-                    console.log('Match found!');
-                    // (Further actions for a match can be added here)
-                } else {
-                    console.log('No match');
-                    // (Further actions for a non-match can be added here)
-
-                    // Flip the cards back over after a delay
-                    setTimeout(() => {
-                        firstCard.classList.remove('flipped');
-                        card.classList.remove('flipped');
-                    }, 1000);
-                }
-
-                // Reset the first card variable for the next turn
-                firstCard = null;
+                // The cards do not match, flip them back over after a short delay
+                setTimeout(() => {
+                    firstCard.classList.remove('flipped');
+                    card.classList.remove('flipped');
+                }, 1000);
             }
+            // Reset firstCard for the next turn
+            firstCard = null;
         })
-        .catch((error) => {
+        .catch(error => {
             console.error('Error:', error);
+            firstCard = null;
         });
 }
