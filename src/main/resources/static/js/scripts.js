@@ -1,32 +1,39 @@
 let firstCard = null;
+let secondCard = null;
 
-function cardClicked(card) {
+function cardClicked(cardElement) {
     if (firstCard === null) {
-        firstCard = card;
-        return;
+        firstCard = cardElement;
+    } else {
+        secondCard = cardElement;
+        checkForMatch();
     }
 
-    const firstCardId = firstCard.getAttribute("data-card-id");
-    const secondCardId = card.getAttribute("data-card-id");
-
-    fetch(`http://localhost:8080/toggleCard?firstCardId=${firstCardId}&secondCardId=${secondCardId}`)
+    const cardId = cardElement.getAttribute('data-card-id');
+    fetch(`http://localhost:8080/toggleCard?cardId=${cardId}`)
         .then(response => response.text())
-        .then(responseText => {
-            console.log(responseText);
-            if (responseText === 'match') {
-                // The cards match, so they should remain flipped
+        .then(data => console.log(data));
+}
+
+function checkForMatch() {
+    const firstCardId = firstCard.getAttribute('data-card-id');
+    const secondCardId = secondCard.getAttribute('data-card-id');
+
+    fetch(`http://localhost:8080/checkMatch?firstCardId=${firstCardId}&secondCardId=${secondCardId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.match) {
+                // Cards match, keep them flipped
+                firstCard = null;
+                secondCard = null;
             } else {
-                // The cards do not match, flip them back over after a short delay
+                // Cards do not match, flip them back
                 setTimeout(() => {
                     firstCard.classList.remove('flipped');
-                    card.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
+                    firstCard = null;
+                    secondCard = null;
                 }, 1000);
             }
-            // Reset firstCard for the next turn
-            firstCard = null;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            firstCard = null;
         });
 }
