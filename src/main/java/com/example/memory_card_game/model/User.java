@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -45,9 +47,16 @@ public class User {
 
 
 
-
-
     }
+
+    // A User can be associated with multiple Player entities. Hence, we can establish a one-to-many relationship between User and Player.
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Player> players;
+
+
+
 
 
 }
