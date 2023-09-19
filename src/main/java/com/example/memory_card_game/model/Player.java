@@ -20,17 +20,7 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
 
-    @Column(nullable = false)
-    private String password;
-
-    // One player can have multiple scores, hence the one-to-many relationship.
-
-    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-
-    private List<Score> scores;
 
 
 }
