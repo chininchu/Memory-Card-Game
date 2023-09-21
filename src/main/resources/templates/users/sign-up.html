@@ -7,6 +7,14 @@
 <body>
 <h1>Create an account</h1>
 <form th:action="@{/sign-up}" method="POST" th:object="${user}">
+
+    <label for="firstname">First Name</label>
+    <input id="firstname" th:field="*{firstName}" />
+
+    <label for="lastname">Last Name</label>
+    <input id="lastname" th:field="*{lastName}" />
+
+
     <label for="username">Username</label>
     <input id="username" th:field="*{username}" />
 
