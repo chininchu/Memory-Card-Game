@@ -22,14 +22,13 @@ public class Player {
     private Long id;
 
 
-
-
+    @Column(name = "username")
+    private String username;
 
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 
 
     // Player and Score
@@ -50,11 +49,6 @@ public class Player {
     )
 
     private List<Game> games;
-
-
-
-
-
 
 
 }
