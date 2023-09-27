@@ -18,10 +18,29 @@
         <div class="card" th:each="card: ${cards}" onclick="cardClicked(this)"
              th:attr="data-card-id=${card.id},data-flipped=${card.isFlipped}">
             <div class="card-inner">
-                <div class="back" th:if="${!card.isFlipped}"></div>
-                <div class="front" th:if="${card.isFlipped}">
-                    <span class="material-icons card-icon" th:text="${card.iconName}"></span>
+
+                <div class="card-front">
+
+
+                    <!--                Icon or content here -->
+
+
+                    <div class="front" >
+                        <span class="material-icons card-icon" th:text="${card.iconName}"></span>
+                    </div>
+
                 </div>
+
+                <div class="card-back">
+
+
+                    <!--                Back of the card-->
+
+                    <div class="back" ></div>
+
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -30,7 +49,8 @@
         <div id="timer">0:00</div>
         <form th:action="@{/score}" th:object="${score}" method="post">
             <!-- Populate the username -->
-            <input type="hidden" th:value="${#authentication.principal.username}" id="playerName" name="player.username"/>
+            <input type="hidden" th:value="${#authentication.principal.username}" id="playerName"
+                   name="player.username"/>
             <input type="hidden" th:field="*{timeTaken}" id="scoreTime"/>
             <input type="submit" value="Submit Score"/>
         </form>

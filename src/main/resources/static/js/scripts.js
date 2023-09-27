@@ -2,6 +2,9 @@ let firstCard = null;
 let secondCard = null;
 
 function cardClicked(cardElement) {
+    cardElement.classList.toggle('flipped');
+
+
     if (firstCard === null) {
         firstCard = cardElement;
     } else {
