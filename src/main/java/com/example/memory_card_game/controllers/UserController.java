@@ -51,17 +51,7 @@ public class UserController {
         newPlayer.setUsername(user.getUsername());
 
 
-
-
         playerRepository.save(newPlayer);
-
-
-
-
-
-
-
-
 
 
         return "redirect:/login";

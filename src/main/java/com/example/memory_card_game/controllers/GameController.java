@@ -39,6 +39,8 @@ public class GameController {
 
 
 
+
+
     @Autowired
 
     public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository) {
@@ -162,6 +164,18 @@ public class GameController {
 
 
     }
+
+    // This method will create a new Game object and associate it with the current Player.
+
+
+//    @PostMapping("/startGame")
+//    public String startGame(){
+//
+//
+//
+//
+//    }
+
 
 
 }
