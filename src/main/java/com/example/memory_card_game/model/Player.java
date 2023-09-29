@@ -17,6 +17,7 @@ import java.util.Locale;
 
 public class Player {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
