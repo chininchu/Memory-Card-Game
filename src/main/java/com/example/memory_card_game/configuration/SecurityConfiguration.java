@@ -52,7 +52,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/css/**", "/js/**").permitAll()
                 )
                 /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/profile"))
+                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/game"))
                 /* Logout configuration */
                 .logout((logout) -> logout.logoutSuccessUrl("/"))
                 .httpBasic(withDefaults());
