@@ -1,7 +1,9 @@
 package com.example.memory_card_game.controllers;
 
 
+import com.example.memory_card_game.Repository.PlayerRepository;
 import com.example.memory_card_game.Repository.UserRepository;
+import com.example.memory_card_game.model.Player;
 import com.example.memory_card_game.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,14 @@ public class UserController {
     private UserRepository userDao;
     private PasswordEncoder passwordEncoder;
 
+    private PlayerRepository playerRepository;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
+
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, PlayerRepository playerRepository) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
+
+        this.playerRepository = playerRepository;
     }
 
     @GetMapping("/sign-up")
@@ -33,7 +39,31 @@ public class UserController {
     public String saveUser(@ModelAttribute User user) {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
+
+
         userDao.save(user);
+
+        // Create a new Player object and associate it with the User
+
+        Player newPlayer = new Player();
+
+        newPlayer.setUser(user);
+        newPlayer.setUsername(user.getUsername());
+
+
+
+
+        playerRepository.save(newPlayer);
+
+
+
+
+
+
+
+
+
+
         return "redirect:/login";
 
     }
