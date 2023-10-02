@@ -41,6 +41,14 @@ public class Score {
     private Player player;
 
 
+    // Many scores can belong to one game
+    @ManyToOne
+    private Game game;
+
+
+
+
+
 
 
 

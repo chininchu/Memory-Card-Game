@@ -35,4 +35,9 @@ public class Game {
     @ManyToMany(mappedBy = "games")
     private List<Player> players;
 
+
+    @OneToMany(mappedBy = "game")  // One game can have many scores
+    private List<Score> scores;
+
+
 }
