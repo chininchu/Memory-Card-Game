@@ -1,12 +1,7 @@
 package com.example.memory_card_game.controllers;
 
-import com.example.memory_card_game.Repository.CardRepository;
-import com.example.memory_card_game.Repository.PlayerRepository;
-import com.example.memory_card_game.Repository.ScoreRepository;
-import com.example.memory_card_game.Repository.UserRepository;
-import com.example.memory_card_game.model.Card;
-import com.example.memory_card_game.model.Score;
-import com.example.memory_card_game.model.User;
+import com.example.memory_card_game.Repository.*;
+import com.example.memory_card_game.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +31,8 @@ public class GameController {
 
     private final UserRepository userRepository;
 
+    private final GameRepository gameRepository;
+
 
 
 
@@ -43,11 +40,12 @@ public class GameController {
 
     @Autowired
 
-    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository) {
+    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository,GameRepository gameRepository) {
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
         this.cardRepository = cardRepository;
         this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -165,16 +163,49 @@ public class GameController {
 
     }
 
-    // This method will create a new Game object and associate it with the current Player.
+     This method will create a new Game object and associate it with the current Player.
 
 
-//    @PostMapping("/startGame")
-//    public String startGame(){
-//
-//
-//
-//
-//    }
+    @PostMapping("/startGame")
+    public String startGame(){
+
+        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Fetch the Player object associated with the username
+
+        Player currentPlayer = playerRepository.findPlayerByUsername(loggedIn.getUsername());
+
+        // Create a new Game object and associate it with the Player
+
+        Game newGame = new Game();
+
+        newGame.setPlayers((List<Player>) currentPlayer);
+
+        // Save the new Game
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 
 
