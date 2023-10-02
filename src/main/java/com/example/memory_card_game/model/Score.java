@@ -22,6 +22,8 @@ public class Score {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
     @Column(nullable = false)
 
 //    time taken to match all cards, in seconds
@@ -39,6 +41,19 @@ public class Score {
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
+
+
+    // Many scores can belong to one game
+    @ManyToOne
+    private Game game;
+
+    // New field for storing points
+
+    @Column(nullable = false)
+    private int points = 0; // Initialized to 0
+
+
+
 
 
 

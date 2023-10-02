@@ -1,12 +1,7 @@
 package com.example.memory_card_game.controllers;
 
-import com.example.memory_card_game.Repository.CardRepository;
-import com.example.memory_card_game.Repository.PlayerRepository;
-import com.example.memory_card_game.Repository.ScoreRepository;
-import com.example.memory_card_game.Repository.UserRepository;
-import com.example.memory_card_game.model.Card;
-import com.example.memory_card_game.model.Score;
-import com.example.memory_card_game.model.User;
+import com.example.memory_card_game.Repository.*;
+import com.example.memory_card_game.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class GameController {
@@ -36,18 +28,17 @@ public class GameController {
 
     private final UserRepository userRepository;
 
-
-
-
+    private final GameRepository gameRepository;
 
 
     @Autowired
 
-    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository) {
+    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository, GameRepository gameRepository) {
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
         this.cardRepository = cardRepository;
         this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -56,9 +47,18 @@ public class GameController {
 
     public String displayGame(Model model) {
 
-         User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Find the player associated with the authenticated user
+
+        Player player = playerRepository.findPlayerByUsername(loggedIn.getUsername());
+
+        //TODO: Add a code that handles if the player is not found.
 
 
+        // Attributes of the model
+
+        model.addAttribute("player", player);
 
 
         model.addAttribute("score", new Score());
@@ -85,24 +85,27 @@ public class GameController {
 
     }
 
-    @PostMapping("/score")
-
-    public String saveScore(@Validated @ModelAttribute("score") Score score, BindingResult result, RedirectAttributes redirectAttributes) {
-
-        if (result.hasErrors()) {
-
-            redirectAttributes.addFlashAttribute("errorMessage", "There was an error saving the score.");
-            return "redirect:/game";
+    // TODO: 1.When the "Start Game"  button is clicked, the form submits a POST request to the /score endpoint. 2. InGameController, you can initialize the game state, start the timer, and redirect the user back to the game page.
 
 
-        }
+//    @PostMapping("/score")
 
-
-        scoreRepository.save(score);
-        return "redirect:/highscores";
-
-
-    }
+//    public String saveScore(@Validated @ModelAttribute("score") Score score, BindingResult result, RedirectAttributes redirectAttributes) {
+//
+//        if (result.hasErrors()) {
+//
+//            redirectAttributes.addFlashAttribute("errorMessage", "There was an error saving the score.");
+//            return "redirect:/game";
+//
+//
+//        }
+//
+//
+//        scoreRepository.save(score);
+//        return "redirect:/highscores";
+//
+//
+//    }
 
     @GetMapping("/highscores")
 
@@ -165,17 +168,47 @@ public class GameController {
 
     }
 
-    // This method will create a new Game object and associate it with the current Player.
+
+    @PostMapping("/score")
+    public String startGame(@ModelAttribute("score") Score score) {
+
+        // Get the authenticated user
 
 
-//    @PostMapping("/startGame")
-//    public String startGame(){
-//
-//
-//
-//
-//    }
+        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+
+        // Find the player associated with the authenticated user
+
+
+        Player currentPlayer = playerRepository.findPlayerByUsername(loggedIn.getUsername());
+
+
+        // Initialize a new game
+
+
+        Game newGame = new Game();
+
+        newGame.setPlayers(Collections.singletonList(currentPlayer));
+
+        gameRepository.save(newGame);
+
+        // Initialize Score
+
+        score.setPlayer(currentPlayer);
+        score.setGame(newGame);
+        score.setPoints(0);
+        scoreRepository.save(score);
+
+
+        // Save the new Game
+
+        gameRepository.save(newGame);
+
+        return "redirect:/game";
+
+
+    }
 
 
 }
