@@ -34,13 +34,9 @@ public class GameController {
     private final GameRepository gameRepository;
 
 
-
-
-
-
     @Autowired
 
-    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository,GameRepository gameRepository) {
+    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository, GameRepository gameRepository) {
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
         this.cardRepository = cardRepository;
@@ -54,9 +50,18 @@ public class GameController {
 
     public String displayGame(Model model) {
 
-         User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Find the player associated with the authenticated user
+
+        Player player = playerRepository.findPlayerByUsername(loggedIn.getUsername());
+
+        //TODO: Add a code that handles if the player is not found.
 
 
+        // Attributes of the model
+
+        model.addAttribute("player", player);
 
 
         model.addAttribute("score", new Score());
@@ -82,6 +87,9 @@ public class GameController {
 
 
     }
+
+    // TODO: 1.When the "Start Game"  button is clicked, the form submits a POST request to the /score endpoint. 2. In your GameController, you can initialize the game state, start the timer, and redirect the user back to the game page.
+
 
     @PostMapping("/score")
 
@@ -163,11 +171,11 @@ public class GameController {
 
     }
 
-     This method will create a new Game object and associate it with the current Player.
+//     This method will create a new Game object and associate it with the current Player.
 
 
     @PostMapping("/startGame")
-    public String startGame(){
+    public String startGame() {
 
         User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -183,30 +191,12 @@ public class GameController {
 
         // Save the new Game
 
+        gameRepository.save(newGame);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return "redirect:/game";
 
 
     }
-
 
 
 }
