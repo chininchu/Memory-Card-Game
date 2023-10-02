@@ -169,8 +169,6 @@ public class GameController {
     }
 
 
-
-
     @PostMapping("/score")
     public String startGame(@ModelAttribute("score") Score score) {
 
@@ -181,7 +179,6 @@ public class GameController {
 
 
         // Find the player associated with the authenticated user
-
 
 
         Player currentPlayer = playerRepository.findPlayerByUsername(loggedIn.getUsername());
@@ -200,12 +197,8 @@ public class GameController {
 
         score.setPlayer(currentPlayer);
         score.setGame(newGame);
-
-
-
-
-
-
+        score.setPoints(0);
+        scoreRepository.save(score);
 
 
         // Save the new Game
