@@ -199,6 +199,9 @@ public class GameController {
         // Initialize Score
 
         score.setPlayer(currentPlayer);
+        score.setGame(newGame);
+
+
 
 
 
