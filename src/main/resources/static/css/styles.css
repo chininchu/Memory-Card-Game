@@ -83,20 +83,20 @@ h1 {
 
 
 /* Default state: show the front, hide the back */
-.card-front {
-    backface-visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+/*.card-front {*/
+/*    backface-visibility: hidden;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*}*/
 
-.card-back {
-    backface-visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: rotateY(180deg);
-}
+/*.card-back {*/
+/*    backface-visibility: hidden;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    transform: rotateY(180deg);*/
+/*}*/
 
 /* Flipped state: rotate the inner container */
 .card.flipped .card-inner {
