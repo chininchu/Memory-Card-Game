@@ -32,13 +32,12 @@ public class GameController {
     private final GameRepository gameRepository;
 
 
-
     private HttpSession httpSession;
 
 
     @Autowired
 
-    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository, GameRepository gameRepository,HttpSession httpSession) {
+    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository, GameRepository gameRepository, HttpSession httpSession) {
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
         this.cardRepository = cardRepository;
@@ -73,19 +72,22 @@ public class GameController {
 
         List<Card> cards = (List<Card>) httpSession.getAttribute("cards");
 
-        if (cards == null){
+        if (cards == null) {
 
             cards = cardRepository.findAll();
-            httpSession.setAttribute("cards",cards);
+            httpSession.setAttribute("cards", cards);
         }
 
-        // Set isFlipped to false for all cards to ensure they are face down initially
 
-//        for (Card card : cards) {
-//            card.setIsFlipped(false);
-//
-//
-//        }
+        for (Card card : cards) {
+            card.setIsFlipped(false);
+            cardRepository.save(card);  // Save each card back to the database
+
+
+
+        }
+
+        httpSession.setAttribute("cards",cards);
 
 
         model.addAttribute("cards", cards);
@@ -133,6 +135,7 @@ public class GameController {
     }
 
 
+@PreAuthorize("isAuthenticated()")
     @PostMapping("/toggleCard")
     @ResponseBody
 
