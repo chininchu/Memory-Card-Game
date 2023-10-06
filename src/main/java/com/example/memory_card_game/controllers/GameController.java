@@ -46,7 +46,6 @@ public class GameController {
         this.httpSession = httpSession;
     }
 
-    @PreAuthorize("isAuthenticated()")
 
     @GetMapping("/game")
 
@@ -135,7 +134,6 @@ public class GameController {
     }
 
 
-@PreAuthorize("isAuthenticated()")
     @PostMapping("/toggleCard")
     @ResponseBody
 

@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 public class UserController {
 
-    private UserRepository userDao;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userDao;
+    private final PasswordEncoder passwordEncoder;
 
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
 
 
     public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, PlayerRepository playerRepository) {

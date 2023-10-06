@@ -9,9 +9,8 @@ async function fetchGameState() {
     try {
         const response = await fetch('http://localhost:8080/game', {
             method: 'GET',
-            // headers: {
-            //     // Add any necessary headers here, such as authentication tokens
-            // }
+            credentials: 'include'
+
         });
 
         if (response.ok) {
