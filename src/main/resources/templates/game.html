@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
@@ -10,7 +8,9 @@
 </head>
 <body onload="startGame(); setInitialState();">
 
-<div>
+<!-- Ensure the entire page content is only visible to authenticated users -->
+<div sec:authorize="isAuthenticated()">
+
     <h1>Memory Matching Game</h1>
 
     <!-- Display the username -->
@@ -23,18 +23,11 @@
         <div class="card" th:each="card: ${cards}" onclick="cardClicked(this)"
              th:attr="data-card-id=${card.id},data-flipped=${!card.isFlipped}">
             <div class="card-inner">
-                <!--                <div class="card-front">-->
                 <div class="front">
                     <span class="material-icons card-icon" th:text="${card.iconName}"></span>
                 </div>
-                <!--                </div>-->
-                <!--                <div class="card-back">-->
-
                 <div class="card-back" th:if="${!card.isFlipped}">
-
-
                     <div class="back"></div>
-                    <!--                </div>-->
                 </div>
             </div>
         </div>
@@ -52,5 +45,13 @@
     </div>
 
     <script th:src="@{/js/scripts.js}"></script>
+</div>
+
+<!-- Content for unauthenticated users -->
+<div sec:authorize="isAnonymous()">
+    <p>You must be logged in to access this page.</p>
+    <a href="/login">Login</a>
+</div>
+
 </body>
 </html>
