@@ -2,6 +2,7 @@ package com.example.memory_card_game.controllers;
 
 import com.example.memory_card_game.Repository.*;
 import com.example.memory_card_game.model.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,17 +32,20 @@ public class GameController {
     private final GameRepository gameRepository;
 
 
+    private HttpSession httpSession;
+
+
     @Autowired
 
-    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository, GameRepository gameRepository) {
+    public GameController(PlayerRepository playerRepository, ScoreRepository scoreRepository, CardRepository cardRepository, UserRepository userRepository, GameRepository gameRepository, HttpSession httpSession) {
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
         this.cardRepository = cardRepository;
         this.userRepository = userRepository;
         this.gameRepository = gameRepository;
+        this.httpSession = httpSession;
     }
 
-    @PreAuthorize("isAuthenticated()")
 
     @GetMapping("/game")
 
@@ -63,15 +67,26 @@ public class GameController {
 
         model.addAttribute("score", new Score());
 
-        List<Card> cards = cardRepository.findAll();
+//        List<Card> cards = cardRepository.findAll();
 
-        // Set isFlipped to false for all cards to ensure they are face down initially
+        List<Card> cards = (List<Card>) httpSession.getAttribute("cards");
+
+        if (cards == null) {
+
+            cards = cardRepository.findAll();
+            httpSession.setAttribute("cards", cards);
+        }
+
 
         for (Card card : cards) {
             card.setIsFlipped(false);
+            cardRepository.save(card);  // Save each card back to the database
+
 
 
         }
+
+        httpSession.setAttribute("cards",cards);
 
 
         model.addAttribute("cards", cards);
