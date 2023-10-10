@@ -52,22 +52,17 @@ public class GameController {
     public String displayGame(Model model) {
 
         User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         // Find the player associated with the authenticated user
 
         Player player = playerRepository.findPlayerByUsername(loggedIn.getUsername());
 
         //TODO: Add a code that handles if the player is not found.
 
-
         // Attributes of the model
 
         model.addAttribute("player", player);
 
 
-        model.addAttribute("score", new Score());
-
-//        List<Card> cards = cardRepository.findAll();
 
         List<Card> cards = (List<Card>) httpSession.getAttribute("cards");
 
@@ -82,20 +77,14 @@ public class GameController {
             card.setIsFlipped(false);
             cardRepository.save(card);  // Save each card back to the database
 
-
-
         }
-
         httpSession.setAttribute("cards",cards);
 
-
         model.addAttribute("cards", cards);
-
 
         // Logic to display the game
         return "game";
 
-        // This refers to the game.html (or game template) file
 
 
     }
@@ -122,108 +111,108 @@ public class GameController {
 //
 //    }
 
-    @GetMapping("/highscores")
-
-    public String displayHighScores(Model model) {
-
-        model.addAttribute("scores", scoreRepository.findAll());
-
-        return "highscores"; // This refers to the highscores.html file
-
-
-    }
-
-
-    @PostMapping("/toggleCard")
-    @ResponseBody
-
-    public ResponseEntity<String> toggleCard(@RequestParam Long cardId) {
-
-        Optional<Card> cardOptional = cardRepository.findById(cardId);
-
-
-        if (cardOptional.isPresent()) {
-
-            Card card = cardOptional.get();
-
-            card.setIsFlipped(!card.getIsFlipped());
-
-            cardRepository.save(card);
-
-            return ResponseEntity.ok("Card flipped");
-
-
-        } else {
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
-        }
-
-
-    }
-
-    @GetMapping("/checkMatch")
-
-    public ResponseEntity<Map<String, Boolean>> checkMatch(@RequestParam Long firstCardId, @RequestParam Long secondCardId) {
-
-        // Stores the Id for the first card
-
-        Card firstCard = cardRepository.findById(firstCardId).orElseThrow();
-
-        // Stores the Id for the secondcard
-        Card secondCard = cardRepository.findById(secondCardId).orElseThrow();
-
-        boolean match = firstCard.getIconName().equals(secondCard.getIconName());
-
-        Map<String, Boolean> response = new HashMap<>();
-
-        response.put("match", match);
-
-        return ResponseEntity.ok(response);
-
-
-    }
-
-
-    @PostMapping("/score")
-    public String startGame(@ModelAttribute("score") Score score) {
-
-        // Get the authenticated user
-
-
-        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-
-        // Find the player associated with the authenticated user
-
-
-        Player currentPlayer = playerRepository.findPlayerByUsername(loggedIn.getUsername());
-
-
-        // Initialize a new game
-
-
-        Game newGame = new Game();
-
-        newGame.setPlayers(Collections.singletonList(currentPlayer));
-
-        gameRepository.save(newGame);
-
-        // Initialize Score
-
-        score.setPlayer(currentPlayer);
-        score.setGame(newGame);
-        score.setPoints(0);
-        scoreRepository.save(score);
-
-
-        // Save the new Game
-
-        gameRepository.save(newGame);
-
-        return "redirect:/game";
-
-
-    }
+//    @GetMapping("/highscores")
+//
+//    public String displayHighScores(Model model) {
+//
+//        model.addAttribute("scores", scoreRepository.findAll());
+//
+//        return "highscores"; // This refers to the highscores.html file
+//
+//
+//    }
+//
+//
+//    @PostMapping("/toggleCard")
+//    @ResponseBody
+//
+//    public ResponseEntity<String> toggleCard(@RequestParam Long cardId) {
+//
+//        Optional<Card> cardOptional = cardRepository.findById(cardId);
+//
+//
+//        if (cardOptional.isPresent()) {
+//
+//            Card card = cardOptional.get();
+//
+//            card.setIsFlipped(!card.getIsFlipped());
+//
+//            cardRepository.save(card);
+//
+//            return ResponseEntity.ok("Card flipped");
+//
+//
+//        } else {
+//
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+//        }
+//
+//
+//    }
+//
+//    @GetMapping("/checkMatch")
+//
+//    public ResponseEntity<Map<String, Boolean>> checkMatch(@RequestParam Long firstCardId, @RequestParam Long secondCardId) {
+//
+//        // Stores the Id for the first card
+//
+//        Card firstCard = cardRepository.findById(firstCardId).orElseThrow();
+//
+//        // Stores the Id for the secondcard
+//        Card secondCard = cardRepository.findById(secondCardId).orElseThrow();
+//
+//        boolean match = firstCard.getIconName().equals(secondCard.getIconName());
+//
+//        Map<String, Boolean> response = new HashMap<>();
+//
+//        response.put("match", match);
+//
+//        return ResponseEntity.ok(response);
+//
+//
+//    }
+//
+//
+//    @PostMapping("/score")
+//    public String startGame(@ModelAttribute("score") Score score) {
+//
+//        // Get the authenticated user
+//
+//
+//        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//
+//        // Find the player associated with the authenticated user
+//
+//
+//        Player currentPlayer = playerRepository.findPlayerByUsername(loggedIn.getUsername());
+//
+//
+//        // Initialize a new game
+//
+//
+//        Game newGame = new Game();
+//
+//        newGame.setPlayers(Collections.singletonList(currentPlayer));
+//
+//        gameRepository.save(newGame);
+//
+//        // Initialize Score
+//
+//        score.setPlayer(currentPlayer);
+//        score.setGame(newGame);
+//        score.setPoints(0);
+//        scoreRepository.save(score);
+//
+//
+//        // Save the new Game
+//
+//        gameRepository.save(newGame);
+//
+//        return "redirect:/game";
+//
+//
+//    }
 
 
 }

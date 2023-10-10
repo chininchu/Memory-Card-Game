@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body onload="startGame(); setInitialState();">
+<body>
 
 <!-- Ensure the entire page content is only visible to authenticated users -->
 <div sec:authorize="isAuthenticated()">
@@ -14,13 +14,13 @@
     <h1>Memory Matching Game</h1>
 
     <!-- Display the username -->
-    <div id="username">Welcome, <span th:text="${#authentication.principal.username}"></span></div>
+    <div id="username">Welcome, <span></span></div>
 
     <!-- Timer -->
     <div id="timer">5:00</div>
 
     <div id="gameBoard">
-        <div class="card" th:each="card: ${cards}" onclick="cardClicked(this)"
+        <div class="card" th:each="card: ${cards}"
              th:attr="data-card-id=${card.id},data-flipped=${!card.isFlipped}">
             <div class="card-inner">
                 <div class="front">
@@ -32,26 +32,21 @@
             </div>
         </div>
 
-        <div class="header">
-            <form th:action="@{/score}" th:object="${score}" method="post">
-                <!-- Populate the username -->
-                <input type="hidden" th:value="${#authentication.principal.username}" id="playerName"
-                       name="player.username"/>
-                <input type="hidden" th:field="*{timeTaken}" id="scoreTime"/>
-                <input type="submit" value="Start Game" onclick="startGame()"/>
-            </form>
-        </div>
+        <!--        <div class="header">-->
+        <!--            <form th:action="@{/score}" th:object="${score}" method="post">-->
+        <!--                &lt;!&ndash; Populate the username &ndash;&gt;-->
+        <!--                <input type="hidden" th:value="${#authentication.principal.username}" id="playerName"-->
+        <!--                       name="player.username"/>-->
+        <!--                <input type="hidden" th:field="*{timeTaken}" id="scoreTime"/>-->
+        <!--                <input type="submit" value="Start Game" onclick="startGame()"/>-->
+        <!--            </form>-->
+        <!--        </div>-->
 
     </div>
 
     <script th:src="@{/js/scripts.js}"></script>
 </div>
 
-<!-- Content for unauthenticated users -->
-<div sec:authorize="isAnonymous()">
-    <p>You must be logged in to access this page.</p>
-    <a href="/login">Login</a>
-</div>
 
 </body>
 </html>
