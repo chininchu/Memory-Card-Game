@@ -19,32 +19,25 @@
     <!-- Timer -->
     <div id="timer">5:00</div>
 
+    <!-- Game Board -->
     <div id="gameBoard">
-        <div th:each="card : ${cards}">
-            <p th:text="${card.isFlipped}"></p>
-
+        <!-- Card -->
+        <div class="card" th:each="card : ${cards}">
             <div class="card-inner">
-                <div class="front">
-
+                <!-- Front of the Card -->
+                <div class="front" th:if="${card.isFlipped}">
                     <span class="material-icons card-icon" th:text="${card.iconName}"></span>
                 </div>
-
-
+                <!-- Back of the Card -->
                 <div class="card-back" th:if="${!card.isFlipped}">
                     <div class="back"></div>
                 </div>
-
-
             </div>
-
         </div>
-
-
     </div>
 
     <script th:src="@{/js/scripts.js}"></script>
 </div>
-
 
 </body>
 </html>
