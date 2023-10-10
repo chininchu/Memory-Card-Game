@@ -20,27 +20,25 @@
     <div id="timer">5:00</div>
 
     <div id="gameBoard">
-        <div class="card" th:each="card: ${cards}"
-             th:attr="data-card-id=${card.id},data-flipped=${!card.isFlipped}">
+        <div th:each="card : ${cards}">
+            <p th:text="${card.isFlipped}"></p>
+
             <div class="card-inner">
                 <div class="front">
+
                     <span class="material-icons card-icon" th:text="${card.iconName}"></span>
                 </div>
+
+
                 <div class="card-back" th:if="${!card.isFlipped}">
                     <div class="back"></div>
                 </div>
+
+
             </div>
+
         </div>
 
-        <!--        <div class="header">-->
-        <!--            <form th:action="@{/score}" th:object="${score}" method="post">-->
-        <!--                &lt;!&ndash; Populate the username &ndash;&gt;-->
-        <!--                <input type="hidden" th:value="${#authentication.principal.username}" id="playerName"-->
-        <!--                       name="player.username"/>-->
-        <!--                <input type="hidden" th:field="*{timeTaken}" id="scoreTime"/>-->
-        <!--                <input type="submit" value="Start Game" onclick="startGame()"/>-->
-        <!--            </form>-->
-        <!--        </div>-->
 
     </div>
 

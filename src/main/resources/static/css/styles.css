@@ -103,7 +103,7 @@ h1 {
     transform: rotateY(180deg);
 }
 
-/* Flipped state: rotate the material-icons */
+ /*Flipped state: rotate the material-icons */
 .material-icons.flipped {
     transform: rotateY(180deg);
     transition: transform 0.5s;

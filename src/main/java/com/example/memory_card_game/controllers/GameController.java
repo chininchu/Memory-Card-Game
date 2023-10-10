@@ -32,7 +32,7 @@ public class GameController {
     private final GameRepository gameRepository;
 
 
-    private HttpSession httpSession;
+    private final HttpSession httpSession;
 
 
     @Autowired
@@ -48,48 +48,34 @@ public class GameController {
 
 
     @GetMapping("/game")
-
     public String displayGame(Model model) {
-
         User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        // Find the player associated with the authenticated user
-
         Player player = playerRepository.findPlayerByUsername(loggedIn.getUsername());
 
-        //TODO: Add a code that handles if the player is not found.
-
-        // Attributes of the model
-
         model.addAttribute("player", player);
-
-
 
         List<Card> cards = (List<Card>) httpSession.getAttribute("cards");
 
         if (cards == null) {
-
             cards = cardRepository.findAll();
             httpSession.setAttribute("cards", cards);
         }
 
-
         for (Card card : cards) {
             card.setIsFlipped(false);
-            cardRepository.save(card);  // Save each card back to the database
-
+            // Removed the line that saves the card back to the database
         }
-        httpSession.setAttribute("cards",cards);
+        httpSession.setAttribute("cards", cards);
 
         model.addAttribute("cards", cards);
 
-        // Logic to display the game
         return "game";
-
-
-
     }
 
-    // TODO: 1.When the "Start Game"  button is clicked, the form submits a POST request to the /score endpoint. 2. InGameController, you can initialize the game state, start the timer, and redirect the user back to the game page.
+
+}
+
+// TODO: 1.When the "Start Game"  button is clicked, the form submits a POST request to the /score endpoint. 2. InGameController, you can initialize the game state, start the timer, and redirect the user back to the game page.
 
 
 //    @PostMapping("/score")
@@ -215,7 +201,7 @@ public class GameController {
 //    }
 
 
-}
+
 
 
 
