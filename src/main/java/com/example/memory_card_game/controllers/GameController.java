@@ -46,36 +46,44 @@ public class GameController {
         this.httpSession = httpSession;
     }
 
-
     @GetMapping("/game")
+
     public String displayGame(Model model) {
+
+
+//        / Get the logged-in user's username
         User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Player player = playerRepository.findPlayerByUsername(loggedIn.getUsername());
 
+
         model.addAttribute("player", player);
 
-        List<Card> cards = (List<Card>) httpSession.getAttribute("cards");
 
-        if (cards == null) {
-            cards = cardRepository.findAll();
-            httpSession.setAttribute("cards", cards);
-        }
-
+        // Fetch all cards and set them to face down
+        List<Card> cards = cardRepository.findAll();
         for (Card card : cards) {
             card.setIsFlipped(false);
-            // Removed the line that saves the card back to the database
         }
-        httpSession.setAttribute("cards", cards);
 
+        // Add the cards to the session and model
+        httpSession.setAttribute("cards", cards);
         model.addAttribute("cards", cards);
 
+        Game game = new Game();
+
+        game.setPlayers((List<Player>) player);
+        game.setCards(cards);
+
+        model.addAttribute("game",game);
+
         return "game";
+
+
     }
 
 
 }
 
-// TODO: 1.When the "Start Game"  button is clicked, the form submits a POST request to the /score endpoint. 2. InGameController, you can initialize the game state, start the timer, and redirect the user back to the game page.
 
 
 //    @PostMapping("/score")
