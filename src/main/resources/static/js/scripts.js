@@ -36,7 +36,7 @@ async function toggleCardFlip(event) {
 
     // Then update the server
     try {
-        const response = await fetch(`http://localhost:8080/game/${cardId}`, {
+        const response = await fetch(`http://localhost:8080/game`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
