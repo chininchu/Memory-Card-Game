@@ -1,7 +1,4 @@
-"use strict";
-
-// This function is responsible for updating the visual state of card elements on a webpage based on their data-flipped attribute. Here's how it works:
-
+// Fetch initial card states and update the DOM
 async function updateCardFlipState() {
     try {
         const response = await fetch('http://localhost:8080/game');
@@ -21,9 +18,7 @@ async function updateCardFlipState() {
     }
 }
 
-
-// the following function to your existing JavaScript code to toggle the flipped class and update the data-flipped attribute when a card is clicked.
-
+// Toggle card flip state on click and update the server
 async function toggleCardFlip(event) {
     const card = event.currentTarget;
     const cardInner = card.querySelector('.card-inner');
@@ -41,7 +36,7 @@ async function toggleCardFlip(event) {
 
     // Then update the server
     try {
-        const response = await fetch(`http://localhost:8080/game`, {
+        const response = await fetch(`http://localhost:8080/game/${cardId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,31 +52,12 @@ async function toggleCardFlip(event) {
     }
 }
 
-
-
-// Event Listeners
-
+// Attach event listeners after fetching initial card states
 document.addEventListener("DOMContentLoaded", async function () {
-    // Fetch and set the initial card states
     await updateCardFlipState();
 
-    // Attach the toggleCardFlip function to each card
     const cards = document.querySelectorAll('.card');
     cards.forEach((card) => {
         card.addEventListener('click', toggleCardFlip);
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

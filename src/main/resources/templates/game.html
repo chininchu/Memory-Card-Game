@@ -29,7 +29,7 @@
                     <span class="material-icons card-icon" th:text="${card.iconName}"></span>
                 </div>
                 <!-- Back of the Card -->
-                <div class="card-back" th:if="${!card.isFlipped}">
+                <div class="card-back" th:unless="${!card.isFlipped}">
                     <div class="back"></div>
                 </div>
             </div>

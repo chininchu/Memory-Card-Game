@@ -51,8 +51,9 @@ public class GameController {
     public String displayGame(Model model) {
 
 
-//        / Get the logged-in user's username
+        // Get the logged-in user's username
         User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         Player player = playerRepository.findPlayerByUsername(loggedIn.getUsername());
 
 
@@ -69,12 +70,6 @@ public class GameController {
         httpSession.setAttribute("cards", cards);
         model.addAttribute("cards", cards);
 
-        Game game = new Game();
-
-        game.setPlayers((List<Player>) player);
-        game.setCards(cards);
-
-        model.addAttribute("game",game);
 
         return "game";
 
@@ -83,7 +78,6 @@ public class GameController {
 
 
 }
-
 
 
 //    @PostMapping("/score")
